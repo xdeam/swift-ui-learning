@@ -8,20 +8,25 @@
 import SwiftUI
 
 struct EmojiMemoryGameView: View {
-    var gameViewModel: EmojiMemoryGame
+    @ObservedObject var gameViewModel: EmojiMemoryGame
     
     var body: some View {
-        HStack  {
-            ForEach(gameViewModel.cards){ card in
-                CardView(card:card).onTapGesture {
-                    gameViewModel.choose(card: card)
+        VStack{
+            ForEach(0..<6){ _ in
+                HStack  {
+                    ForEach(gameViewModel.cards){ card in
+                        CardView(card:card).onTapGesture {
+                            gameViewModel.choose(card: card)
+                        }
+                        .aspectRatio(2/3, contentMode: .fit)
+                    }
                 }
+                .padding()
+                .foregroundColor(Color.orange)
+                .font(Font.largeTitle)
             }
         }
-        .padding()
-        .foregroundColor(Color.orange)
-        .font(Font.largeTitle)
- }
+    }
 }
 
 struct CardView: View{
@@ -36,9 +41,9 @@ struct CardView: View{
             }else{
                 RoundedRectangle(cornerRadius: 10.0).fill()
             }
-          
+            
         }
-       
+        
     }
 }
 

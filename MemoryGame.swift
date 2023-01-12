@@ -9,7 +9,7 @@ import Foundation
 
 struct MemoryGame<CardContent> {
     init (numberOfPairCards: Int , cardContentFactory: (Int) -> CardContent){
-       cards = Array<Card>()
+        cards = Array<Card>()
         for pairIndex in 0..<numberOfPairCards {
             let content = cardContentFactory(pairIndex)
             cards.append(Card(id:pairIndex*2 , content:content))

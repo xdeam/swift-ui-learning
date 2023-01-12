@@ -7,10 +7,10 @@
 
 import Foundation
 
-class EmojiMemoryGame {
+class EmojiMemoryGame :ObservableObject{
     
-    private var gameData: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
-
+    @Published private var gameData: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    
     static func createMemoryGame() -> MemoryGame<String>{
         let emojis: Array<String> = ["🫥","🤪","🙃"]
         
@@ -25,11 +25,21 @@ class EmojiMemoryGame {
     var cards: Array<MemoryGame<String>.Card>  {
         return gameData.cards
     }
-   
+    
     //MARK: Intent(s)
     
     func choose(card: MemoryGame<String>.Card){
         gameData.choose(card: card)
+        gameData.cards[index(of: card)].isFaceUp = !gameData.cards[index(of: card)].isFaceUp
     }
     
+    func index(of aCard: MemoryGame<String>.Card)->Int{
+        for card in cards {
+            if (card.id == aCard.id){
+                return aCard.id
+            }
+        }
+        return 0
+        //TODO: - modify the return value
+    }
 }
